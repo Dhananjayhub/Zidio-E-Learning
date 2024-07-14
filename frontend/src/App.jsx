@@ -3,9 +3,11 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import Home from "./pages/home/home";
+import About from "./pages/about/About";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Verify from "./pages/auth/Verify";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
   return (
@@ -15,6 +17,8 @@ const App = () => {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+
           <Route path="/login" element={ <Login />} />
             <Route
               path="/register"
@@ -24,6 +28,9 @@ const App = () => {
             
 
         </Routes>
+
+        <Footer />
+
       </BrowserRouter>
     </>
   );
