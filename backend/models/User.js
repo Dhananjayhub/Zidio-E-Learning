@@ -21,7 +21,7 @@ const schema = mongoose.Schema({
     },
    subscription: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Course"
+    ref: "Courses"
 }
    ] }, { timestamps: true });
 
