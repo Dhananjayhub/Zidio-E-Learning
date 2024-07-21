@@ -2,12 +2,25 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 
   font-family: Arial, sans-serif;
 }
 
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
 .common-btn {
-  background-color: #8a4baf;
+  background-color: red;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -16,10 +29,12 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-top: 10px;
+  animation: bounce 2s infinite; 
+}
 
-  &:hover {
+  /* &:hover {
     background-color: #5f357e;
-  }
+  } */
 
   @media (max-width: 768px) {
     font-size: 16px;

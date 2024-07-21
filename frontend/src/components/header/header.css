@@ -2,13 +2,13 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 13px;
     background-color: #fff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
   
     .logo {
-      font-size: 25px;
+      font-size: 15px;
       font-weight: 600;
       color: #8a4baf;
   
@@ -37,3 +37,8 @@ header {
     }
   }
   
+  .image{
+    width: 91px;
+    height: 60px;
+    object-fit: cover;
+  }

@@ -1,11 +1,13 @@
 import React from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
+import elearningLogo from "../../assets/elearning-logo.png";
+
 
 const Header = ({ isAuth }) => {
   return (
     <header>
-      <div className="logo"> <img src="../" alt="" /> </div>
+<div className="logo"><img className="image" src={elearningLogo} alt="E-learning" /></div>
 
       <div className="link">
         <Link to={"/"}>Home</Link>
