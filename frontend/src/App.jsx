@@ -20,6 +20,8 @@ import Footer from "./components/footer/Footer";
 import AdminDashbord from "./admin/Dashboard/AdminDashbord";
 import AdminCourses from "./admin/Courses/AdminCourses";
 import AdminUsers from "./admin/Users/AdminUsers";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const App = () => {
   const { isAuth, user, loading } = UserData();
@@ -82,6 +84,14 @@ const App = () => {
             <Route
               path="/admin/users"
               element={isAuth ? <AdminUsers user={user} /> : <Login />}
+            />
+             <Route
+              path="/forgot"
+              element={isAuth ? <Home /> : <ForgotPassword />}
+            />
+            <Route
+              path="/reset-password/:token"
+              element={isAuth ? <Home /> : <ResetPassword />}
             />
           </Routes>
 

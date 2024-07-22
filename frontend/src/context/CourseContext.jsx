@@ -1,5 +1,3 @@
-
-
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { server } from "../main";
@@ -37,8 +35,6 @@ export const CourseContextProvider = ({ children }) => {
           token: localStorage.getItem("token"),
         },
       });
-
-      
 
       setMyCourse(data.courses);
     } catch (error) {
