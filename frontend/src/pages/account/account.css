@@ -1,29 +1,51 @@
 .profile {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    margin: 185px auto;
-  
-    @media (max-width: 768px) {
-      padding: 10px;
-      width: 80%;
-      margin: 90px auto;
-    }
-  
-    .profile-info {
-      text-align: left;
-      margin-top: 15px;
-  
-      p {
-        margin-bottom: 10px;
-        color: #333;
-  
-        strong {
-          color: #8a4baf;
-        }
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 35%;
+  margin: 100px auto;
+  position: relative;
+  overflow: hidden; /* Ensure child elements don't overflow the card */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transition for card effects */
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    width: 90%;
+    margin: 50px auto;
+  }
+
+  &:hover {
+    transform: translateY(-10px); /* Lift the card on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+  }
+
+  .profile-info {
+    text-align: left;
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in-out; /* Animation for profile info appearance */
+
+    p {
+      margin-bottom: 12px;
+      color: #444;
+      font-size: 16px;
+
+      strong {
+        color: #8a4baf;
+        font-weight: 600;
       }
     }
   }
-  
+
+  /* Keyframes for fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

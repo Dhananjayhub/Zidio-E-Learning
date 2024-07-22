@@ -32,7 +32,7 @@ const AdminUsers = ({ user }) => {
   }, []);
 
   const updateRole = async (id) => {
-    if (confirm("are you sure you want to update this user role")) {
+    if (confirm("Are you sure you want to update this user's role?")) {
       try {
         const { data } = await axios.put(
           `${server}/api/user/${id}`,
@@ -52,41 +52,38 @@ const AdminUsers = ({ user }) => {
     }
   };
 
-  console.log(users);
   return (
     <Layout>
       <div className="users">
         <h1>All Users</h1>
-        <table border={"black"}>
+        <table>
           <thead>
             <tr>
-              <td>#</td>
-              <td>name</td>
-              <td>email</td>
-              <td>role</td>
-              <td>update role</td>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Update Role</th>
             </tr>
           </thead>
-
-          {users &&
-            users.map((e, i) => (
-              <tbody>
-                <tr>
-                  <td>{i + 1}</td>
-                  <td>{e.name}</td>
-                  <td>{e.email}</td>
-                  <td>{e.role}</td>
-                  <td>
-                    <button
-                      onClick={() => updateRole(e._id)}
-                      className="common-btn"
-                    >
-                      Update Role
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={user._id}>
+                <td>{index + 1}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>
+                  <button
+                    onClick={() => updateRole(user._id)}
+                    className="update-role-btn"
+                  >
+                    Update Role
+                  </button>
+                </td>
+              </tr>
             ))}
+          </tbody>
         </table>
       </div>
     </Layout>

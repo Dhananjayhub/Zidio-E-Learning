@@ -1,67 +1,99 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hoverLift {
+  from {
+    transform: translateY(0);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  to {
+    transform: translateY(-10px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
 .testimonials {
-    padding: 80px 0;
-    text-align: center;
-  
-    h2 {
-      font-size: 32px;
-      color: #8a4baf;
-      margin-bottom: 30px;
-    }
-  
-    .testmonials-cards {
+  padding: 80px 0;
+  text-align: center;
+
+  h2 {
+    font-size: 32px;
+    color: #8a4baf;
+    margin-bottom: 30px;
+  }
+
+  .testmonials-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+
+    .testimonial-card {
+      background-color: white;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: left;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-  
-      .testimonial-card {
-        background-color: white;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        border-radius: 10px;
-        width: 300px;
-        text-align: left;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-  
-        @media (max-width: 768px) {
-          width: 80%;
-          text-align: center;
-        }
-  
-        .student-image {
-          img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-          }
-        }
-  
-        .message {
-          font-size: 16px;
-          color: #333;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.8s ease-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        animation: hoverLift 0.3s ease-out forwards;
+      }
+
+      @media (max-width: 768px) {
+        width: 80%;
+        text-align: center;
+      }
+
+      .student-image {
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          object-fit: cover;
           margin-bottom: 10px;
+          transition: transform 0.3s ease;
         }
-  
-        .info {
-          text-align: center;
+
+        img:hover {
+          transform: scale(1.1);
         }
-  
-        .name {
-          font-size: 18px;
-          font-weight: bold;
-          color: #8a4baf;
-          margin-bottom: 5px;
-        }
-  
-        .position {
-          font-size: 14px;
-          color: #666;
-        }
+      }
+
+      .message {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .info {
+        text-align: center;
+      }
+
+      .name {
+        font-size: 18px;
+        font-weight: bold;
+        color: #8a4baf;
+        margin-bottom: 5px;
+      }
+
+      .position {
+        font-size: 14px;
+        color: #666;
       }
     }
   }
-  
+}

@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-between;
   min-height: 80vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+  animation: fadeIn 1.5s ease-in-out; /* Fade-in animation for the entire section */
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -11,33 +14,53 @@
 
   .left {
     width: 70%;
-    padding: 10px;
-    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
 
     @media (max-width: 768px) {
       width: 90%;
+    }
+
+    &:hover {
+      transform: scale(1.02); /* Slightly scale up on hover */
     }
   }
 
   .right {
     width: 30%;
 
+    @media (max-width: 768px) {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+
     .lecture-form {
       background-color: #fff;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0px, 2px, 4px, rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
       width: auto;
+      transition: transform 0.3s ease-in-out;
 
       h2 {
         font-size: 24px;
         color: #8a4baf;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+        transition: color 0.3s ease-in-out;
+      }
+
+      h2:hover {
+        color: #6d3f91; /* Darker shade on hover */
       }
 
       form {
         text-align: left;
+        display: flex;
+        flex-direction: column;
 
         label {
           display: block;
@@ -47,48 +70,101 @@
         }
 
         input {
-          width: 92%;
+          width: 100%;
           padding: 10px;
           margin-bottom: 15px;
-          border: 1px solid black;
+          border: 1px solid #ccc;
           border-radius: 5px;
+          transition: border-color 0.3s ease-in-out;
+        }
+
+        input:focus {
+          border-color: #8a4baf; /* Change border color on focus */
+          outline: none;
+        }
+
+        button {
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          background-color: #8a4baf;
+          color: #fff;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        button:hover {
+          background-color: #6d3f91; /* Darker shade on hover */
+          transform: scale(1.05); /* Slightly enlarge the button on hover */
         }
       }
-    }
-
-    @media (max-width: 768px) {
-      width: 80%;
-      margin-bottom: 10px;
     }
 
     .lecture-number {
       background-color: #fff;
       padding: 10px;
-      border: 1px solid black;
+      border: 1px solid #ddd;
       margin-top: 10px;
       border-radius: 5px;
       text-align: center;
       cursor: pointer;
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
       &:hover {
         background-color: #8a4baf;
         color: white;
       }
-    }
 
-    .active {
-      background-color: #8a4baf;
-      color: white;
+      &.active {
+        background-color: #8a4baf;
+        color: white;
+      }
     }
   }
 }
 
 .progress {
-  width: 20%;
+  width: 100%;
+  max-width: 300px;
   background-color: #333;
   padding: 6px;
   border-radius: 5px;
-  margin: 3px auto;
+  margin: 20px auto;
   text-align: center;
   color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: pulse 1.5s infinite; /* Pulse animation */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

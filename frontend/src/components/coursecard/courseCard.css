@@ -5,29 +5,63 @@
   border-radius: 10px;
   text-align: center;
   width: 250px;
-  transition: 0.5s;
+  transition: 0.3s ease-in-out, transform 0.3s ease-in-out; /* Transition for hover effects and scaling */
+  position: relative;
+  overflow: hidden; /* Ensure no overflow of the image */
 
   &:hover {
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px); /* Lift the card on hover */
+    animation: pulse 1.5s infinite; /* Add pulse animation */
   }
 
   .course-image {
     width: 100%;
-    height: 150px;
-    object-fit: cover;
+    
+    object-fit: cover; /* Ensure the image covers the container without distortion */
     border-radius: 10px;
     margin-bottom: 10px;
+    transition: transform 0.3s ease-in-out; /* Transition for image zoom effect */
+  }
+
+  &:hover .course-image {
+    transform: scale(1.05); /* Zoom in the image on hover */
   }
 
   h3 {
     font-size: 18px;
     color: #333;
     margin-bottom: 10px;
+    transition: color 0.3s ease-in-out; /* Transition for text color change */
+  }
+
+  &:hover h3 {
+    color: #8a4baf; /* Change text color on hover */
   }
 
   p {
     font-size: 14px;
     color: #666;
     margin-bottom: 5px;
+    transition: color 0.3s ease-in-out; /* Transition for text color change */
+  }
+
+  &:hover p {
+    color: #444; /* Change text color on hover */
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.03);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 }

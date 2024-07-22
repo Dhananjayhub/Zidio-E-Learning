@@ -1,34 +1,81 @@
 .course-study-page {
-  padding: 50px 0;
-  background-color: #f5f5f5;
+  padding: 60px 20px;
+  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 80vh;
+  animation: fadeIn 1.5s ease-in-out; /* Fade-in animation for the entire section */
+}
 
-  h2 {
-    font-size: 24px;
-    color: #8a4baf;
-    text-align: center;
+.course-card {
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-bottom: 30px;
+  animation: slideIn 1s ease-in-out;
+}
+
+.course-card:hover {
+  transform: translateY(-10px); /* Slightly lift the card on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+.course-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.course-card h2, .course-card h4, .course-card h5 {
+  margin: 10px 0;
+  color: #8a4baf;
+  transition: color 0.3s ease-in-out;
+}
+
+.course-card h2:hover, .course-card h4:hover, .course-card h5:hover {
+  color: #6d3f91; /* Darker shade on hover */
+}
+
+.course-card a {
+  text-decoration: none;
+  background-color: #fff;
+  padding: 10px 20px;
+  border: 1px solid #8a4baf;
+  border-radius: 5px;
+  color: #8a4baf;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.course-card a:hover {
+  background-color: #8a4baf; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-
-  h4 {
-    font-size: 21px;
-    color: #8a4baf;
-    text-align: center;
+  100% {
+    opacity: 1;
   }
+}
 
-  h5 {
-    font-size: 20px;
-    color: #8a4baf;
-    text-align: center;
+@keyframes slideIn {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
   }
-
-  a {
-    text-decoration: none;
-    background-color: white;
-    padding: 5px 10px;
-    border: 1px solid black;
-    border-radius: 5px;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
