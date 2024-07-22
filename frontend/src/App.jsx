@@ -17,28 +17,37 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Verify from "./pages/auth/Verify";
 import Footer from "./components/footer/Footer";
+import AdminDashbord from "./admin/Dashboard/AdminDashbord";
+import AdminCourses from "./admin/Courses/AdminCourses";
+import AdminUsers from "./admin/Users/AdminUsers";
 
 const App = () => {
   const { isAuth, user, loading } = UserData();
   return (
     <>
-      {loading ? <Loading /> : <BrowserRouter>
-        <Header isAuth={isAuth} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/courses" element={<Courses />} />
+      {loading ? (
+        <Loading />
+      ) : (
+        <BrowserRouter>
+          <Header isAuth={isAuth} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/courses" element={<Courses />} />
 
-          <Route
+            <Route
               path="/account"
               element={isAuth ? <Account user={user} /> : <Login />}
             />
             <Route path="/login" element={isAuth ? <Home /> : <Login />} />
 
-          <Route path="/register" element={isAuth ? <Home /> : <Register />} />
-          <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
+            <Route
+              path="/register"
+              element={isAuth ? <Home /> : <Register />}
+            />
+            <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
 
-          <Route
+            <Route
               path="/course/:id"
               element={isAuth ? <CourseDescription user={user} /> : <Login />}
             />
@@ -47,7 +56,7 @@ const App = () => {
               element={isAuth ? <PaymentSuccess user={user} /> : <Login />}
             />
 
-<Route
+            <Route
               path="/:id/dashboard"
               element={isAuth ? <Dashbord user={user} /> : <Login />}
             />
@@ -56,15 +65,29 @@ const App = () => {
               element={isAuth ? <CourseStudy user={user} /> : <Login />}
             />
 
-              <Route
+            <Route
               path="/lectures/:id"
               element={isAuth ? <Lecture user={user} /> : <Login />}
             />
 
-        </Routes>
+            <Route
+              path="/admin/dashboard"
+              element={isAuth ? <AdminDashbord user={user} /> : <Login />}
+            />
 
-        <Footer />
-      </BrowserRouter>}
+            <Route
+              path="/admin/course"
+              element={isAuth ? <AdminCourses user={user} /> : <Login />}
+            />
+            <Route
+              path="/admin/users"
+              element={isAuth ? <AdminUsers user={user} /> : <Login />}
+            />
+          </Routes>
+
+          <Footer />
+        </BrowserRouter>
+      )}
     </>
   );
 };

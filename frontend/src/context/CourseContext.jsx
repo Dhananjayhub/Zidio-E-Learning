@@ -38,6 +38,8 @@ export const CourseContextProvider = ({ children }) => {
         },
       });
 
+      
+
       setMyCourse(data.courses);
     } catch (error) {
       console.log(error);

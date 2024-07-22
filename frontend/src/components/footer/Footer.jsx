@@ -10,9 +10,8 @@ const Footer = () => {
   return (
     <footer>
       <div className="footer-content">
-        <p>
-          &copy; 2024 Your E-Learning Platform. All rights reserved. <br /> Made
-          with ❤️ <a href="">Dhananjay Kumar Jha</a>
+        <p >
+          &copy; 2024  All rights reserved. <br /> 
         </p>
         <div className="social-links">
           <a href="">
@@ -25,6 +24,7 @@ const Footer = () => {
             <AiFillInstagram />
           </a>
         </div>
+        <p>Made by Dhananjay kumar jha</p>
       </div>
     </footer>
   );
