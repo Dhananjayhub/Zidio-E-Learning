@@ -1,8 +1,8 @@
 import { User } from "../models/User.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import sendMail from "../middlewares/sendEmail.js"; // Make sure you have a utility to send mail
-import TryCatch from "../middlewares/tryCatch.js";
+import sendMail, { sendForgotMail } from "../middlewares/sendMail.js";
+import TryCatch from "../middlewares/TryCatch.js";
 
 export const register = TryCatch(async (req, res) => {
   const { email, name, password } = req.body;
@@ -11,7 +11,7 @@ export const register = TryCatch(async (req, res) => {
 
   if (user)
     return res.status(400).json({
-      message: "User already exists",
+      message: "User Already exists",
     });
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -40,10 +40,10 @@ export const register = TryCatch(async (req, res) => {
     otp,
   };
 
-  await sendMail(email, "E-learning", data);
+  await sendMail(email, "E learning", data);
 
   res.status(200).json({
-    message: "OTP sent to your email",
+    message: "Otp send to your mail",
     activationToken,
   });
 });
@@ -55,12 +55,12 @@ export const verifyUser = TryCatch(async (req, res) => {
 
   if (!verify)
     return res.status(400).json({
-      message: "OTP expired",
+      message: "Otp Expired",
     });
 
   if (verify.otp !== otp)
     return res.status(400).json({
-      message: "Wrong OTP",
+      message: "Wrong Otp",
     });
 
   await User.create({
@@ -70,7 +70,7 @@ export const verifyUser = TryCatch(async (req, res) => {
   });
 
   res.json({
-    message: "User registered",
+    message: "User Registered",
   });
 });
 
@@ -81,14 +81,14 @@ export const loginUser = TryCatch(async (req, res) => {
 
   if (!user)
     return res.status(400).json({
-      message: "No user with this email",
+      message: "No User with this email",
     });
 
-  const matchPassword = await bcrypt.compare(password, user.password);
+  const mathPassword = await bcrypt.compare(password, user.password);
 
-  if (!matchPassword)
+  if (!mathPassword)
     return res.status(400).json({
-      message: "Wrong password",
+      message: "wrong Password",
     });
 
   const token = jwt.sign({ _id: user._id }, process.env.Jwt_Sec, {
@@ -115,21 +115,21 @@ export const forgotPassword = TryCatch(async (req, res) => {
 
   if (!user)
     return res.status(404).json({
-      message: "No user with this email",
+      message: "No User with this email",
     });
 
   const token = jwt.sign({ email }, process.env.Forgot_Secret);
 
   const data = { email, token };
 
-  await sendMail(email, "E-learning", data); // Changed function name to match the context
+  await sendForgotMail("E learning", data);
 
   user.resetPasswordExpire = Date.now() + 5 * 60 * 1000;
 
   await user.save();
 
   res.json({
-    message: "Reset password link sent to your email",
+    message: "Reset Password Link is send to you mail",
   });
 });
 
@@ -143,17 +143,24 @@ export const resetPassword = TryCatch(async (req, res) => {
       message: "No user with this email",
     });
 
-  if (user.resetPasswordExpire === null || user.resetPasswordExpire < Date.now())
+  if (user.resetPasswordExpire === null)
     return res.status(400).json({
-      message: "Token expired",
+      message: "Token Expired",
     });
+
+  if (user.resetPasswordExpire < Date.now()) {
+    return res.status(400).json({
+      message: "Token Expired",
+    });
+  }
 
   const password = await bcrypt.hash(req.body.password, 10);
 
   user.password = password;
+
   user.resetPasswordExpire = null;
 
   await user.save();
 
-  res.json({ message: "Password reset" });
+  res.json({ message: "Password Reset" });
 });

@@ -9,7 +9,7 @@ import { TiTick } from "react-icons/ti";
 
 const Lecture = ({ user }) => {
   const [lectures, setLectures] = useState([]);
-  const [lecture, setLecture] = useState([]);
+  const [lecture, setLecture] = useState(null); // Initialize as null
   const [loading, setLoading] = useState(true);
   const [lecLoading, setLecLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -17,12 +17,17 @@ const Lecture = ({ user }) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [video, setvideo] = useState("");
+  const [video, setVideo] = useState("");
   const [videoPrev, setVideoPrev] = useState("");
   const [btnLoading, setBtnLoading] = useState(false);
 
-  if (user && user.role !== "admin" && !user.subscription.includes(params.id))
-    return navigate("/");
+  useEffect(() => {
+    if (user && user.role !== "admin" && !user.subscription.includes(params.id)) {
+      navigate("/");
+    }
+    fetchLectures();
+    fetchProgress();
+  }, [user, params.id, navigate]);
 
   async function fetchLectures() {
     try {
@@ -63,13 +68,13 @@ const Lecture = ({ user }) => {
 
     reader.onloadend = () => {
       setVideoPrev(reader.result);
-      setvideo(file);
+      setVideo(file);
     };
   };
 
   const submitHandler = async (e) => {
-    setBtnLoading(true);
     e.preventDefault();
+    setBtnLoading(true);
     const myForm = new FormData();
 
     myForm.append("title", title);
@@ -88,15 +93,15 @@ const Lecture = ({ user }) => {
       );
 
       toast.success(data.message);
-      setBtnLoading(false);
       setShow(false);
-      fetchLectures();
       setTitle("");
       setDescription("");
-      setvideo("");
+      setVideo("");
       setVideoPrev("");
+      fetchLectures(); // Re-fetch lectures after adding a new one
     } catch (error) {
       toast.error(error.response.data.message);
+    } finally {
       setBtnLoading(false);
     }
   };
@@ -111,7 +116,7 @@ const Lecture = ({ user }) => {
         });
 
         toast.success(data.message);
-        fetchLectures();
+        fetchLectures(); // Re-fetch lectures after deletion
       } catch (error) {
         toast.error(error.response.data.message);
       }
@@ -155,18 +160,12 @@ const Lecture = ({ user }) => {
         }
       );
       console.log(data.message);
-      fetchProgress();
+      fetchProgress(); // Update progress after adding
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(progress);
-
-  useEffect(() => {
-    fetchLectures();
-    fetchProgress();
-  }, []);
   return (
     <>
       {loading ? (
@@ -183,7 +182,7 @@ const Lecture = ({ user }) => {
                 <Loading />
               ) : (
                 <>
-                  {lecture.video ? (
+                  {lecture && lecture.video ? ( // Check if lecture and video exist
                     <>
                       <video
                         src={`${server}/${lecture.video}`}
@@ -233,7 +232,7 @@ const Lecture = ({ user }) => {
 
                     <input
                       type="file"
-                      placeholder="choose video"
+                      placeholder="Choose video"
                       onChange={changeVideoHandler}
                       required
                     />
@@ -258,30 +257,28 @@ const Lecture = ({ user }) => {
                 </div>
               )}
 
-              {lectures && lectures.length > 0 ? (
+              {lectures.length > 0 ? (
                 lectures.map((e, i) => (
-                  <>
+                  <React.Fragment key={e._id}>
                     <div
                       onClick={() => fetchLecture(e._id)}
-                      key={i}
                       className={`lecture-number ${
-                        lecture._id === e._id && "active"
+                        lecture && lecture._id === e._id ? "active" : ""
                       }`}
                     >
                       {i + 1}. {e.title}{" "}
-                      {progress &&
-                        progress[0].completedLectures.includes(e._id) && (
-                          <span
-                            style={{
-                              background: "red",
-                              padding: "2px",
-                              borderRadius: "6px",
-                              color: "greenyellow",
-                            }}
-                          >
-                            <TiTick />
-                          </span>
-                        )}
+                      {progress[0] && progress[0].completedLectures.includes(e._id) && (
+                        <span
+                          style={{
+                            background: "red",
+                            padding: "2px",
+                            borderRadius: "6px",
+                            color: "greenyellow",
+                          }}
+                        >
+                          <TiTick />
+                        </span>
+                      )}
                     </div>
                     {user && user.role === "admin" && (
                       <button
@@ -292,7 +289,7 @@ const Lecture = ({ user }) => {
                         Delete {e.title}
                       </button>
                     )}
-                  </>
+                  </React.Fragment>
                 ))
               ) : (
                 <p>No Lectures Yet!</p>
